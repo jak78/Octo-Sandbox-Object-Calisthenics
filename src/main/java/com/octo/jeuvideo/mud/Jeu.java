@@ -1,32 +1,31 @@
 package com.octo.jeuvideo.mud;
 
-import com.octo.jeuvideo.mud.positions.Direction;
-import com.octo.jeuvideo.mud.positions.PieceSombre;
-import com.octo.jeuvideo.mud.positions.Position;
-import com.octo.jeuvideo.mud.positions.SousPorte;
+import com.octo.jeuvideo.mud.positions.*;
 
 public class Jeu {
 
-	private Position position;
+	private Position positionDuJoueur;
+    private Carte carte;
 
 	public Jeu() {
-		position = new PieceSombre();
+        carte = new Carte();
+		positionDuJoueur = carte.donneLaPositionDeDepart();
 	}
 
 	public String regarde() {
-		return position.decrire();
+		return positionDuJoueur.decrire();
 	}
 
-	public String deplaceNord() {
-		Position destination;
+    public String deplace(Direction direction) {
+        Position destination;
 		try {
-			destination = position.donneMoiLaPosition(Direction.NORD);
+			destination = positionDuJoueur.donneMoiLaPosition(direction);
 		} catch (CommandeInvalideException e) {
 			return e.getMessage();
 		}
 
-		position = destination;
+		positionDuJoueur = destination;
 		return new SousPorte().decrire();
-	}
+    }
 
 }

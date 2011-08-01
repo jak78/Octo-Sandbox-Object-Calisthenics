@@ -6,8 +6,5 @@ public class CommandeInvalideException extends Exception {
 		super("Commande invalide.");
 	}
 
-	public CommandeInvalideException(Throwable t) {
-		super("Commande invalide.", t);
-	}
 
 }

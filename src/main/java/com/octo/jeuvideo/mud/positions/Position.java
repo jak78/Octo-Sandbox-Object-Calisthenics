@@ -1,22 +1,28 @@
 package com.octo.jeuvideo.mud.positions;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.octo.jeuvideo.mud.CommandeInvalideException;
+import com.octo.jeuvideo.mud.Voisins;
 
 public abstract class Position {
-	protected Map<Direction, Position> voisins = new HashMap<Direction, Position>(
-			4);
+	protected Voisins voisins = new Voisins();
 
+    public Position() {
+        
+    }
+    public void ajouterVoisins(Position nord,Position sud) {
+        voisins.ajouterVoisin(Direction.NORD,nord);
+        voisins.ajouterVoisin(Direction.SUD,sud);
+
+    }
 	public abstract String decrire();
 
 	public Position donneMoiLaPosition(Direction direction)
 			throws CommandeInvalideException {
-		if (!voisins.containsKey(direction)) {
+        Position voisin = voisins.quelVoisin(direction);
+		if (voisin == null) {
 			throw new CommandeInvalideException();
 		}
-		return voisins.get(direction);
+		return voisin;
 	}
 
 }
